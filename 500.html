@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="error-page">
+    <div>
+        <div class="error-code" style="color: var(--red); text-shadow: 0 0 60px rgba(255,49,49,0.4);">500</div>
+        <div class="error-label">&gt; SYSTEM MALFUNCTION — ARC REACTOR UNSTABLE</div>
+        <p class="error-desc">Something misfired server-side. The engineering team (me) has been notified. Try again in a moment.</p>
+        <a href="{{ url_for('index') }}" class="btn-repulsor" data-glitch-nav>[ RETURN TO BASE ]</a>
+    </div>
+</section>
+{% endblock %}

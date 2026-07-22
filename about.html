@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="schematics-section">
+    <div class="section-header">
+        <div class="section-eyebrow">&gt; 02 // SCHEMATICS — AGENT DOSSIER</div>
+        <h2 class="section-title">S.H.I.E.L.D. FILE</h2>
+        <div class="section-rule"></div>
+    </div>
+
+    <div class="schematics-grid">
+        <div class="dossier">
+            <div class="dossier-tag">S.H.I.E.L.D. FILE // LEVEL 7 CLEARANCE</div>
+            <div class="dossier-label">&gt; SUBJECT ANALYSIS — CODENAME: IRON LEGACY</div>
+
+            <div class="dossier-entries">
+                {% for entry in data.dossier %}
+                <div class="dossier-entry">
+                    <span class="dossier-key">{{ entry.key }}</span>
+                    <span class="dossier-value">{{ entry.value }}</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="dossier-divider"></div>
+
+            <div class="dossier-footer">
+                <div class="dossier-classified">CLASSIFIED</div>
+                <div class="dossier-page">PAGE 1 OF ∞</div>
+            </div>
+        </div>
+
+        <div>
+            <div class="telemetry-label">&gt; LIVE TELEMETRY</div>
+            <div class="telemetry-panel">
+                <div class="telemetry-panel-title">&gt; REAL-TIME SYSTEM STATUS</div>
+                {% for t in data.telemetry %}
+                <div class="telemetry-row">
+                    <span class="telemetry-row-label">{{ t.label }}</span>
+                    <span style="color: {{ t.color }};">{{ t.status }}</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="telemetry-panel" style="margin-top: 24px;">
+                <div class="telemetry-panel-title">&gt; TECH STACK SNAPSHOT</div>
+                {% for skill in data.skills %}
+                <div class="telemetry-row">
+                    <span class="telemetry-row-label">{{ skill.name }}</span>
+                    <span style="color: {{ skill.color }};">{{ skill.level }}%</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

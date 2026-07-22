@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="comms-section">
+    <div class="comms-wrap">
+        <div class="comms-border">
+            <div class="comms-card">
+                <div class="comms-module">MODULE 03 // COMMS</div>
+                <h2 class="comms-title">QUANTUM TRANSMISSION TERMINAL</h2>
+                <div class="comms-subtitle">&gt; SECURE CHANNEL ESTABLISHED — ENCRYPTION: ACTIVE</div>
+
+                <form method="POST">
+                    <div class="comms-field">
+                        <label for="name">[ TRANSMITTER ID ]</label>
+                        <div class="comms-input-wrap">
+                            <input class="comms-input" type="text" id="name" name="name" placeholder="Your name" required>
+                        </div>
+                    </div>
+
+                    <div class="comms-field">
+                        <label for="email">[ FREQUENCY ]</label>
+                        <div class="comms-input-wrap">
+                            <input class="comms-input" type="email" id="email" name="email" placeholder="your@signal.io" required>
+                        </div>
+                    </div>
+
+                    <div class="comms-field">
+                        <label for="subject">[ PRIORITY SUBJECT ]</label>
+                        <div class="comms-input-wrap">
+                            <input class="comms-input" type="text" id="subject" name="subject" placeholder="Subject of transmission">
+                        </div>
+                    </div>
+
+                    <div class="comms-field comms-field-message">
+                        <label for="message">[ ENCRYPTED MESSAGE ]</label>
+                        <div class="comms-input-wrap">
+                            <textarea class="comms-textarea" id="message" name="message" rows="4" placeholder="Your encrypted transmission..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="comms-send-row">
+                        <div class="reactor-send">
+                            <div class="reactor-btn-wrap" style="position: relative;">
+                                <div class="reactor-warning">⚠ Warning: Firing repulsor will deploy your message at 3,000 mph.</div>
+                                <button class="reactor-btn" type="submit" aria-label="Send transmission">
+                                    <svg width="110" height="110" viewBox="0 0 110 110">
+                                        <defs>
+                                            <filter id="rGlow">
+                                                <feGaussianBlur stdDeviation="3" result="b" />
+                                                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+                                            </filter>
+                                        </defs>
+
+                                        <circle class="ring-outer" cx="55" cy="55" r="52" fill="none" stroke-width="1" />
+                                        <circle class="ring-mid" cx="55" cy="55" r="44" fill="none" stroke-width="1.5" stroke-dasharray="10,5" />
+                                        <circle class="ring-inner" cx="55" cy="55" r="32" fill="none" stroke-width="1.5" stroke-dasharray="6,4" />
+
+                                        <circle class="core-ring" cx="55" cy="55" r="18" stroke-width="2" filter="url(#rGlow)" />
+                                        <circle class="core-dot" cx="55" cy="55" r="9" filter="url(#rGlow)" />
+
+                                        <circle class="core-tick" cx="87" cy="55" r="2.5" filter="url(#rGlow)" />
+                                        <circle class="core-tick" cx="71" cy="82.71" r="2.5" filter="url(#rGlow)" />
+                                        <circle class="core-tick" cx="39" cy="82.71" r="2.5" filter="url(#rGlow)" />
+                                        <circle class="core-tick" cx="23" cy="55" r="2.5" filter="url(#rGlow)" />
+                                        <circle class="core-tick" cx="39" cy="27.29" r="2.5" filter="url(#rGlow)" />
+                                        <circle class="core-tick" cx="71" cy="27.29" r="2.5" filter="url(#rGlow)" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="reactor-label">[ SEND TRANSMISSION ]</div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="comms-hotlines-divider">
+                    <div class="comms-hotlines-label">&gt; EMERGENCY HOTLINES — DIRECT RECRUITER ACCESS</div>
+                    <div class="hotlines-row">
+                        <a class="hotline-btn" href="{{ data.contact.linkedin }}" target="_blank" rel="noopener">
+                            <span class="hotline-icon">in</span>
+                            <span class="hotline-label">LINKEDIN</span>
+                            <span class="hotline-sub">Professional Network</span>
+                        </a>
+                        <a class="hotline-btn" href="{{ data.contact.github }}" target="_blank" rel="noopener">
+                            <span class="hotline-icon">&lt;/&gt;</span>
+                            <span class="hotline-label">GITHUB</span>
+                            <span class="hotline-sub">Source Repository</span>
+                        </a>
+                        <a class="hotline-btn" href="mailto:{{ data.contact.email }}">
+                            <span class="hotline-icon">@</span>
+                            <span class="hotline-label">EMAIL</span>
+                            <span class="hotline-sub">Direct Transmission</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

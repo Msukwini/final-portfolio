@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="error-page">
+    <div>
+        <div class="error-code">404</div>
+        <div class="error-label">&gt; SIGNAL LOST — COORDINATES UNKNOWN</div>
+        <p class="error-desc">The module you're looking for isn't in this build. It may have been decommissioned, renamed, or never deployed.</p>
+        <a href="{{ url_for('index') }}" class="btn-repulsor" data-glitch-nav>[ RETURN TO BASE ]</a>
+    </div>
+</section>
+{% endblock %}

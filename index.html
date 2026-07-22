@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <div class="hero-eyebrow">&gt; {{ data.hero.eyebrow }}</div>
+
+        <h1 class="hero-title">
+            <span class="gold">{{ data.hero.line1 }}</span>
+            <span class="white">{{ data.hero.line2 }}</span>
+        </h1>
+
+        <div class="hero-tagline">{{ data.hero.tagline }}</div>
+
+        <div class="hero-actions">
+            <a href="#armory" class="btn-repulsor">[ DEPLOY PROJECTS ]</a>
+            <a href="{{ url_for('contact') }}" class="btn-ghost" data-glitch-nav>&gt; OPEN COMMS</a>
+        </div>
+
+        <div class="hero-stats">
+            {% for stat in data.stats %}
+            <div>
+                <div class="hero-stat-value">{{ stat.value }}</div>
+                <div class="hero-stat-label">{{ stat.label }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="hero-visual">
+        <canvas id="wireframe-sphere" width="500" height="500"></canvas>
+    </div>
+</section>
+
+<div class="status-bar">
+    <span class="status-dot"></span>
+    &gt; {{ data.hero.status }}<span class="boot-cursor">_</span>
+</div>
+
+<section class="schematics-section" style="padding-top: 0;">
+    <div class="section-header">
+        <div class="section-eyebrow">&gt; TECH STACK — POWER CELL STATUS</div>
+    </div>
+    <div class="power-cells">
+        {% for skill in data.skills %}
+        <div class="power-cell">
+            <div class="power-cell-body" style="border: 1px solid {{ skill.color }}44; box-shadow: 0 0 16px {{ skill.color }}18, inset 0 0 8px {{ skill.color }}0A;">
+                <div class="power-cell-fill" data-level="{{ skill.level }}"
+                     style="background: linear-gradient(to top, {{ skill.color }}EE, {{ skill.color }}77); box-shadow: 0 -6px 18px {{ skill.color }}BB;"></div>
+                <div class="power-cell-sheen"></div>
+            </div>
+            <div class="power-cell-name" style="color: {{ skill.color }};">{{ skill.name }}</div>
+            <div class="power-cell-pct">{{ skill.level }}%</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="armory-section" id="armory">
+    <div class="armory-header">
+        <div class="section-header">
+            <div class="section-eyebrow">&gt; 01 // ARMORY — HOLOGRAPHIC GALLERY</div>
+            <h2 class="section-title">ACTIVE DEPLOYMENTS</h2>
+            <div class="section-rule"></div>
+        </div>
+    </div>
+
+    <div class="armory-track">
+        {% for p in data.projects %}
+        <div class="project-card-wrap">
+            <div class="project-card-tilt" style="--tilt: {{ -8 + loop.index0 * 8 }}deg;">
+                <div class="project-card-border">
+                    <div class="project-card">
+                        <svg class="project-card-schematic" preserveAspectRatio="xMidYMid slice">
+                            <circle cx="85%" cy="22%" r="65" fill="none" stroke="{{ p.color }}" stroke-width="0.6" />
+                            <circle cx="85%" cy="22%" r="42" fill="none" stroke="{{ p.color }}" stroke-width="0.6" />
+                            <circle cx="85%" cy="22%" r="18" fill="none" stroke="{{ p.color }}" stroke-width="0.6" />
+                            <line x1="0" y1="68%" x2="100%" y2="68%" stroke="{{ p.color }}" stroke-width="0.5" stroke-dasharray="5,5" />
+                            <line x1="18%" y1="0" x2="18%" y2="100%" stroke="{{ p.color }}" stroke-width="0.5" stroke-dasharray="5,5" />
+                            <text x="19%" y="71%" fill="{{ p.color }}" font-size="7" font-family="monospace" opacity="0.8">↔ 320px</text>
+                            <text x="19%" y="76%" fill="{{ p.color }}" font-size="7" font-family="monospace" opacity="0.8">↕ 240px</text>
+                        </svg>
+
+                        <div class="project-card-mark" style="color: {{ p.color }};">&gt; {{ p.mark }}</div>
+                        <h3 class="project-card-name">{{ p.name }}</h3>
+                        <p class="project-card-desc">{{ p.desc }}</p>
+
+                        <div class="project-card-tech">
+                            {% for t in p.tech %}
+                            <span style="color: {{ p.color }}; border-color: {{ p.color }}44;">{{ t }}</span>
+                            {% endfor %}
+                        </div>
+
+                        <div class="project-card-power">
+                            <div class="project-card-power-row">
+                                <span class="project-card-power-label">POWER OUTPUT</span>
+                                <span class="project-card-power-value" style="color: {{ p.color }};">{{ p.power }}%</span>
+                            </div>
+                            <div class="project-card-power-track">
+                                <div class="project-card-power-bar" data-power="{{ p.power }}"
+                                     style="background: linear-gradient(to right, {{ p.color }}77, {{ p.color }}); box-shadow: 0 0 10px {{ p.color }}BB;"></div>
+                            </div>
+                        </div>
+
+                        <div class="project-card-actions">
+                            <button class="btn-card" style="color: {{ p.color }}; border-color: {{ p.color }}66;" type="button">[ LIVE DEMO ]</button>
+                            <a href="{{ data.contact.github }}" target="_blank" rel="noopener" class="btn-card btn-repo">[ VIEW REPO ]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="armory-spacer"></div>
+    </div>
+
+    <div class="armory-dots">
+        {% for p in data.projects %}
+        <div class="armory-dot"></div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.name }} // STARK.DEV</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="hex-grid-bg"></div>
+    <div class="particles"></div>
+
+    {% if request.endpoint == 'index' %}
+    <div class="boot-overlay" id="boot-overlay">
+        <svg width="260" height="260" viewBox="0 0 260 260">
+            <defs>
+                <linearGradient id="arcG" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#F5C518" />
+                    <stop offset="100%" stop-color="#00F0FF" />
+                </linearGradient>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="3.5" result="b" />
+                    <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+                </filter>
+            </defs>
+
+            <circle cx="130" cy="130" r="120" fill="none" stroke="rgba(0,240,255,0.06)" stroke-width="1" />
+            <circle cx="130" cy="130" r="110" fill="none" stroke="rgba(245,197,24,0.1)" stroke-width="1" stroke-dasharray="8,5" />
+
+            <circle class="boot-ring-progress" cx="130" cy="130" r="80" fill="none" stroke="url(#arcG)" stroke-width="3.5"
+                    stroke-linecap="round" transform="rotate(-90 130 130)" filter="url(#glow)"
+                    style="stroke-dasharray: 502.655; stroke-dashoffset: 502.655; transition: stroke-dashoffset 0.06s linear;" />
+
+            <circle cx="130" cy="130" r="72" fill="none" stroke="rgba(0,240,255,0.14)" stroke-width="1" />
+            <circle cx="130" cy="130" r="60" fill="none" stroke="rgba(245,197,24,0.18)" stroke-width="1" />
+
+            <g style="transform-origin: 130px 130px; animation: spin-cw 5s linear infinite; transform-box: view-box;">
+                <circle cx="130" cy="130" r="46" fill="none" stroke="rgba(0,240,255,0.3)" stroke-width="1.5" stroke-dasharray="10,5" />
+            </g>
+            <g style="transform-origin: 130px 130px; animation: spin-ccw 3.5s linear infinite; transform-box: view-box;">
+                <circle cx="130" cy="130" r="32" fill="none" stroke="rgba(245,197,24,0.4)" stroke-width="1.5" stroke-dasharray="6,4" />
+            </g>
+
+            <!-- Six marker nodes around the mid ring (precomputed hexagon points, r=46 around 130,130) -->
+            <circle cx="176"    cy="130"    r="3.5" fill="#F5C518" filter="url(#glow)" />
+            <circle cx="153"    cy="169.82" r="3.5" fill="#F5C518" filter="url(#glow)" />
+            <circle cx="107"    cy="169.82" r="3.5" fill="#F5C518" filter="url(#glow)" />
+            <circle cx="84"     cy="130"    r="3.5" fill="#F5C518" filter="url(#glow)" />
+            <circle cx="107"    cy="90.18"  r="3.5" fill="#F5C518" filter="url(#glow)" />
+            <circle cx="153"    cy="90.18"  r="3.5" fill="#F5C518" filter="url(#glow)" />
+
+            <circle cx="130" cy="130" r="18" fill="rgba(0,240,255,0.12)" stroke="rgba(0,240,255,0.55)" stroke-width="2" />
+            <circle cx="130" cy="130" r="9" fill="#00F0FF" filter="url(#glow)" style="animation: reactor-pulse 1.8s ease infinite;" />
+        </svg>
+
+        <div class="boot-percent"><span class="boot-percent-value">000%</span></div>
+        <div class="boot-typed"><span class="boot-typed-text"></span><span class="boot-cursor">█</span></div>
+        <div class="boot-brand">STARK INDUSTRIES</div>
+    </div>
+    <script>
+        (function () {
+            if (sessionStorage.getItem('stark_boot_played') === '1') {
+                document.getElementById('boot-overlay').style.display = 'none';
+            }
+        })();
+    </script>
+    {% endif %}
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="nav-logo" data-glitch-nav>STARK.DEV</a>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}" data-glitch-nav class="{{ 'active' if request.endpoint == 'index' }}">Home</a>
+                <a href="{{ url_for('about') }}" data-glitch-nav class="{{ 'active' if request.endpoint == 'about' }}">About</a>
+                <a href="{{ url_for('contact') }}" data-glitch-nav class="{{ 'active' if request.endpoint == 'contact' }}">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main class="page-shell">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="ekg-footer">
+        <div class="ekg-wrap">
+            <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="ekgGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#F5C518" stop-opacity="0" />
+                        <stop offset="20%" stop-color="#F5C518" stop-opacity="0.7" />
+                        <stop offset="50%" stop-color="#00F0FF" stop-opacity="0.7" />
+                        <stop offset="80%" stop-color="#F5C518" stop-opacity="0.7" />
+                        <stop offset="100%" stop-color="#F5C518" stop-opacity="0" />
+                    </linearGradient>
+                </defs>
+                <path class="ekg-path" d="M0,40 L80,40 L100,15 L115,65 L130,8 L148,72 L165,40 L260,40 L280,14 L295,66 L310,8 L328,72 L345,40 L440,40 L460,15 L475,65 L490,8 L508,72 L525,40 L620,40 L640,14 L655,66 L670,8 L688,72 L705,40 L800,40 L820,15 L835,65 L850,8 L868,72 L885,40 L980,40 L1000,14 L1015,66 L1030,8 L1048,72 L1065,40 L1200,40" />
+            </svg>
+            <a class="ekg-signal" href="mailto:{{ data.contact.email }}">// SIGNAL_ORIGIN: {{ data.contact.email }}</a>
+        </div>
+        <div class="ekg-copyright">STARK INDUSTRIES &copy; 3000 &mdash; ALL RIGHTS RESERVED &mdash; IRON LEGACY MARK XLVII</div>
+    </footer>
+
+    <button class="house-party-btn" type="button" aria-label="House Party Protocol">HOUSE PARTY PROTOCOL</button>
+
+    <div class="friday-widget">
+        <div class="friday-panel">
+            <div class="friday-panel-title">F.R.I.D.A.Y. v3.1 // ONLINE</div>
+            <p class="friday-panel-quote">&ldquo;How can I assist your recruitment today?&rdquo;</p>
+            <div class="friday-panel-actions">
+                <a class="friday-open-comms" href="mailto:{{ data.contact.email }}">OPEN COMMS</a>
+                <button class="friday-dismiss" type="button">DISMISS</button>
+            </div>
+        </div>
+        <button class="friday-toggle" type="button" aria-label="Toggle F.R.I.D.A.Y. assistant">
+            <span class="friday-toggle-dot"></span>
+        </button>
+    </div>
+
+    <div class="glitch-overlay"></div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
